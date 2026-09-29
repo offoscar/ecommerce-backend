@@ -1,0 +1,70 @@
+<mxfile host="65bd71144e">
+    <diagram name="MangaShop Domain Model" id="MangaShopDomainModel">
+        <mxGraphModel dx="1175" dy="1008" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="ent_editorial" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Editorial&#xa;&#xa;+ id&#xa;+ nom&#xa;+ pais" vertex="1">
+                    <mxGeometry height="90" width="140" x="40" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_proveidor" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Proveidor&#xa;&#xa;+ id&#xa;+ nom_empresa&#xa;+ cif&#xa;+ email" vertex="1">
+                    <mxGeometry height="100" width="150" x="220" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_categoria" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Categoria&#xa;&#xa;+ id&#xa;+ nom&#xa;+ descripcio" vertex="1">
+                    <mxGeometry height="90" width="140" x="410" y="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_manga" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#d5e8d4;strokeColor=#826b66;fontStyle=1;" value="Manga (Producte)&#xa;&#xa;+ id&#xa;+ titol&#xa;+ volum&#xa;+ autor&#xa;+ preu&#xa;+ stock" vertex="1">
+                    <mxGeometrz x="210" y="220" width="170" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_liniacomanda" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" value="LiniaComanda&#xa;&#xa;+ id&#xa;+ quantitat&#xa;+ preu_unitari" vertex="1">
+                    <mxGeometry height="100" width="150" x="470" y="235" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_comanda" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#ffe6cc;strokeColor=#d79800;fontStyle=1;" value="Comanda&#xa;&#xa;+ id&#xa;+ data&#xa;+ estat&#xa;+ total" vertex="1">
+                    <mxGeometry height="100" width="150" x="710" y="235" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_usuari" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Usuari (Client)&#xa;&#xa;+ id&#xa;+ nom&#xa;+ email&#xa;+ password" vertex="1">
+                    <mxGeometry height="110" width="150" x="710" y="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_adreca" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Adreca&lt;br&gt;&lt;br&gt;+ id&lt;br&gt;+ carrer + ciutat&lt;br&gt;+ codi_postal" vertex="1">
+                    <mxGeometry height="110" width="150" x="930" y="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_treballador" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Treballador&lt;br&gt;&lt;br&gt;+ id&lt;br&gt;+ nom&lt;br&gt;+ dni + lloc_treball" vertex="1">
+                    <mxGeometry height="110" width="150" x="930" y="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="ent_resenya" parent="1" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=23;fillColor=#fff2cc;strokeColor=#d6b156;fontStyle=1;" value="Resenya&#xa;&#xa;+ id&#xa;+ puntuacio&#xa;+ comentari" vertex="1">
+                    <mxGeometry height="90" width="150" x="470" y="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_ed_manga" edge="1" parent="1" source="ent_editorial" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDh=0;exitDy=0;entryX=0.25;entryY=0;entryDh=0;entryDy=0;" target="ent_manga" value="Publica&#xa;1..1 : 1..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_prov_manga" edge="1" parent="1" source="ent_proveidor" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDh=0;exitDy=0;entryX=0.5;entryY=0;entryDh=0;entryDy=0;" target="ent_manga" value="Subministra&#xa;1..1 : 1..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_cat_manga" edge="1" parent="1" source="ent_categoria" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDh=0;exitDy=0;entryX=0.75;entryY=0;entryDh=0;entryDy=0;" target="ent_manga" value="Classifica&#xa;1..1 : 1..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_manga_linia" edge="1" parent="1" source="ent_manga" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDh=0;exitDy=0;entryX=0;entryY=0.5;entryDh=0;entryDy=0;" target="ent_liniacomanda" value="Inclusa en&#xa;1..1 : 0..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_comanda_linia" edge="1" parent="1" source="ent_comanda" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDh=0;exitDy=0;entryX=1;entryY=0.5;entryDh=0;entryDy=0;" target="ent_liniacomanda" value="Te&#xa;1..1 : 1..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_usuari_comanda" edge="1" parent="1" source="ent_usuari" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=0;exitDh=0;exitDy=0;entryX=0.5;entryY=1;entryDh=0;entryDy=0;" target="ent_comanda" value="Realitza&#xa;1..1 : 1..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_usuari_adreca" edge="1" parent="1" source="ent_usuari" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDh=0;exitDy=0;entryX=0;entryY=0.5;entryDh=0;entryDy=0;" target="ent_adreca" value="Te&lt;br&gt;1..1 : 1..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_treballador_comanda" edge="1" parent="1" source="ent_treballador" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDh=0;exitDy=0;entryX=1;entryY=0.5;entryDh=0;entryDy=0;" target="ent_comanda" value="Gestiona&#xa;1..1 : 0..N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_usuari_resenya" edge="1" parent="1" source="ent_usuari" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.5;exitDh=0;exitDy=0;entryX=1;entryY=0.5;entryDh=0;entryDy=0;" target="ent_resenya" value="Escriu&#xa;1..1 : 0..N">
+                    <mxFeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel_manga_resenya" edge="1" parent="1" source="ent_manga" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDh=0;exitDy=0;entryX=0;entryY=0.5;entryDh=0;entryDy=0;" target="ent_resenya" value="Repf#10;1..1 : 0..N">
+                    <mxFeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
