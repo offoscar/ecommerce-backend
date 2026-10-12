@@ -1,13 +1,34 @@
 require('dotenv').config();
 const express = require('express');
-const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 
 const app = express();
 app.use(express.json());
 
-connectDB();
+// Conexión directa a MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('MongoDB connectat correctament');
+  })
+  .catch(err => {
+    console.error('Error de connexió a MongoDB:', err.message);
+    process.exit(1);
+  });
 
 app.get('/', (req, res) => res.send('API Ecommerce en marxa '));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, ()=> console.log('Servidor escoltant al port ${PORT}'));
+app.listen(PORT, () => console.log(`Servidor escoltant al port ${PORT}`));
+
+// Importación de los 11 modelos para validar esquemas
+require('./models/Manga');
+require('./models/Editorial');
+require('./models/Proveedor');
+require('./models/Categoria');
+require('./models/Usuario');
+require('./models/Direccion');
+require('./models/Trabajador');
+require('./models/Pedido');
+require('./models/LineaPedido');
+require('./models/MetodoPago');
+require('./models/Resena');
