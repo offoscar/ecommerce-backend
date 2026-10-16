@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const productRoutes = require('./routes/productRoutes'); // Importem les rutes
+
 
 const app = express();
 app.use(express.json());
@@ -20,7 +22,9 @@ app.get('/', (req, res) => res.send('API Ecommerce en marxa '));
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor escoltant al port ${PORT}`));
 
-// Importación de los 11 modelos para validar esquemas
+// Muntem les rutes de productes sota el prefix '/api/products'
+app.use('/api/products', productRoutes);
+
 require('./models/Manga');
 require('./models/Editorial');
 require('./models/Proveedor');
