@@ -1,12 +1,18 @@
+const Product = require('../models/Manga');
+const { AppError } = require('../middleware/errorHandler');
+const { validateId } = require('../utils/helpers');
 
-const Product = require('../models/Product');
+const notFound = () => new AppError(404, 'PRODUCT_NOT_FOUND', 'Producte no trobat');
 
 const getProducts = async () => {
-    return await Product.find();
+    return await Product.find().populate('categoria', 'name slug');
 };
 
 const getProductById = async (id) => {
-    return await Product.findById(id);
+    validateId(id);
+    const product = await Product.findById(id).populate('categoria', 'name slug');
+    if (!product) throw notFound();
+    return product;
 };
 
 const createProduct = async (productData) => {
@@ -15,14 +21,20 @@ const createProduct = async (productData) => {
 };
 
 const updateProduct = async (id, productData) => {
-    return await Product.findByIdAndUpdate(id, productData, {
+    validateId(id);
+    const product = await Product.findByIdAndUpdate(id, productData, {
         new: true,
         runValidators: true
     });
+    if (!product) throw notFound();
+    return product;
 };
 
 const deleteProduct = async (id) => {
-    return await Product.findByIdAndDelete(id);
+    validateId(id);
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) throw notFound();
+    return product;
 };
 
 module.exports = {

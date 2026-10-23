@@ -1,8 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const productRoutes = require('./routes/productRoutes'); // Importem les rutes
 
+const productRoutes = require('./routes/productRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const userRoutes = require('./routes/userRoutes');
+const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
 app.use(express.json());
@@ -19,11 +22,15 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.get('/', (req, res) => res.send('API Ecommerce en marxa '));
 
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/users', userRoutes);
+app.use(notFound);       // siempre después de las rutas
+app.use(errorHandler);   // siempre el último
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor escoltant al port ${PORT}`));
 
-// Muntem les rutes de productes sota el prefix '/api/products'
-app.use('/api/products', productRoutes);
 
 require('./models/Manga');
 require('./models/Editorial');
