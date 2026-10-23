@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUr1}}/api/categories/6adb50544fd37d44fd392534"
+method: DELETE
+body:
+  type: json
+  content: ""
+order: 1000

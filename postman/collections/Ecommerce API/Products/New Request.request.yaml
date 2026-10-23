@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUr1}}/api/products/6adb549a4fd37d44fd39253c"
+method: GET
+body:
+  type: json
+  content: ""
+order: 1000

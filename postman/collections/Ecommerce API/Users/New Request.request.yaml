@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUr1}}/api/users/6adb5fe84fd37d44fd39253f"
+method: DELETE
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Oscar Rueda\",\r
+
+    \  \"email\": \"oscarrueda@gmail.com\",\r
+
+    \  \"password\": \"contrasenyasegura123\"\r
+
+    }"
+order: 1000
