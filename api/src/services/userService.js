@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/Usuario');
 const { AppError } = require('../middleware/errorHandler');
@@ -73,10 +74,37 @@ const deactivateUser = async (id) => {
     return user;
 };
 
-module.exports = {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deactivateUser
+// Login: valida credencials i retorna JWT + usuari (sense hash)
+const loginUser = async (credentials) => {
+    const { email, password } = credentials || {};
+    if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
+        throw new AppError(422, 'VALIDATION_ERROR', 'Les dades no són vàlides', [
+            { field: 'email/password', message: "L'email i la contrasenya són obligatoris" },
+        ]);
+    }
+
+    // passwordHash té select:false, així que cal demanar-lo explícitament
+    const user = await User.findOne({ email: email.trim().toLowerCase() }).select('+passwordHash');
+
+    // Mateix error si l'usuari no existeix, està desactivat o la contrasenya és incorrecta
+    const valid = user && user.active && (await bcrypt.compare(password, user.passwordHash));
+    if (!valid) {
+        throw new AppError(401, 'INVALID_CREDENTIALS', 'Email o contrasenya incorrectes');
+    }
+
+    const token = jwt.sign(
+        { sub: user.id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
+    );
+
+    return { token, user }; // toJSON elimina passwordHash
 };
+
+module.exports = { 
+    getUsers, 
+    getUserById, 
+    createUser, 
+    updateUser, 
+    deactivateUser, 
+    loginUser };

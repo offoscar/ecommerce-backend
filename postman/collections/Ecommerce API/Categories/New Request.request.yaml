@@ -1,7 +1,15 @@
 $kind: http-request
-url: "{{baseUr1}}/api/categories/6adb50544fd37d44fd392534"
-method: DELETE
+url: "{{baseUr1}}/api/categories?sort=name"
+method: GET
+queryParams:
+  sort: name
 body:
   type: json
-  content: ""
+  content: "{ \r
+
+    \"data\": [], \r
+
+    \"pagination\": {\"page\":1,\"limit\":10,\"total\":25,\"totalPages\":3} \r
+
+    } \r\n"
 order: 1000
